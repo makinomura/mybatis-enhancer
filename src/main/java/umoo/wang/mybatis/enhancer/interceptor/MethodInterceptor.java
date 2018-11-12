@@ -1,5 +1,6 @@
 package umoo.wang.mybatis.enhancer.interceptor;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.util.ClassUtils;
 import umoo.wang.mybatis.enhancer.MybatisEnhancerProperties;
 import umoo.wang.mybatis.enhancer.service.BaseService;
@@ -14,7 +15,7 @@ import java.util.Objects;
  *
  * @param <T>
  */
-public interface MethodInterceptor<T> {
+public interface MethodInterceptor<T> extends Comparable<MethodInterceptor> {
 
     /**
      * 设置实体类
@@ -54,6 +55,18 @@ public interface MethodInterceptor<T> {
      * @param result     查询结果
      */
     default void after(BaseService<T> thisObject, Method method, Object[] arguments, Object result) {
+    }
+
+
+    @Override
+    default int compareTo(MethodInterceptor o) {
+        Order left = this.getClass().getAnnotation(Order.class);
+        Order right = o.getClass().getAnnotation(Order.class);
+
+        int lv = left != null ? left.value() : Integer.MAX_VALUE;
+        int rv = right != null ? right.value() : Integer.MAX_VALUE;
+
+        return Integer.compare(lv, rv);
     }
 
     /**

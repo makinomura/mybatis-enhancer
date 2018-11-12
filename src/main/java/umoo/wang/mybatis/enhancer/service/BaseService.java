@@ -61,6 +61,8 @@ public abstract class BaseService<T> {
             methodInterceptors.add(ac.getBean(miName, MethodInterceptor.class));
         }
 
+        methodInterceptors.sort(MethodInterceptor::compareTo);
+
         for (MethodInterceptor<T> mi : methodInterceptors) {
             mi.setProperties(properties);
             mi.setEntityClass(entityClass);

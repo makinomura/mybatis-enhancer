@@ -39,7 +39,7 @@ public class FilterDeletedMethodInterceptor<T> implements MethodInterceptor<T> {
     public void processEntityQueryParameter(T record) {
 
         try {
-            deleteFlagMethod.invoke(record, 0);
+            deleteFlagMethod.invoke(record, deletedValue);
         } catch (Exception e) {
             logger.error(e.getClass().getName(), e);
         }

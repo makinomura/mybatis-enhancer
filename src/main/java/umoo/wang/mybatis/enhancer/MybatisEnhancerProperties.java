@@ -13,7 +13,7 @@ public class MybatisEnhancerProperties {
 
     private Properties extrasProperties;
 
-    private Class<? extends MethodInterceptor>[] commonInterceptors;
+    private Class<? extends MethodInterceptor>[] commonInterceptors;//通用拦截器
 
     public Class<? extends MethodInterceptor>[] getCommonInterceptors() {
         return commonInterceptors;
